@@ -26,9 +26,17 @@ class Stock(models.Model):
 
 
 class UserStock(models.Model):
-    user = models.ForeignKey(Account, verbose_name=_(''), on_delete=models.CASCADE)
-    stock = models.ForeignKey(Stock, verbose_name=_(''), on_delete=models.CASCADE)
-    status = models.BooleanField(verbose_name=_(''), default=True)
+    user = models.ForeignKey(Account, verbose_name=_('User'), on_delete=models.CASCADE)
+    stock = models.ForeignKey(Stock, verbose_name=_('Stock'), on_delete=models.CASCADE)
+    status = models.BooleanField(verbose_name=_('Status'), default=True)
+    lossPrice = models.FloatField(default=None, verbose_name=_('Loss Price'))
+    protectPrice = models.FloatField(default=None, verbose_name=_('Protect Price'))
+    buyPrice = models.FloatField(default=None, verbose_name=_('Buy Price'))
+    goalPrice = models.FloatField(default=None, verbose_name=_('Goal Price'))
 
     def __init__(self, *args, **kwargs):
         super(UserStock, self).__init__(*args, **kwargs)
+
+    class Meta:
+        verbose_name = _('User Stock')
+        verbose_name_plural = _('User stocks')
